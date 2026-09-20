@@ -155,7 +155,83 @@ def render() -> None:
 
     scan_ph.empty()
 
-    # ── override decision with current threshold
+    # ── DOMAIN SHIFT DETECTION ────────────────────────────────────────────────
+    # The model was trained on 256×256 greyscale industrial surface textures.
+    # Real-world photos are outside that distribution. We detect them using
+    # raw PIL image properties BEFORE the pipeline strips colour information.
+
+    def _detect_domain_shift(uploaded_bytes: bytes) -> dict:
+        from PIL import Image as PILImage
+        import io, numpy as np
+        reasons = []
+        try:
+            pil_img = PILImage.open(io.BytesIO(uploaded_bytes))
+            w, h = pil_img.size
+            mode = pil_img.mode
+
+            # Signal 1: large resolution → real photo, not a surface scan
+            if max(w, h) >= 600:
+                reasons.append(
+                    f"Resolution {w}×{h} px — training images are 256×256 px surface textures."
+                )
+
+            # Signal 2: colour image with significant inter-channel difference
+            if mode in ("RGB", "RGBA"):
+                arr = np.array(pil_img.convert("RGB")).astype(float)
+                ch_means = arr.mean(axis=(0, 1))   # R, G, B means (0–255 scale)
+                ch_spread = float(np.std(ch_means))
+                if ch_spread > 15:
+                    reasons.append(
+                        f"Colour photograph detected (channel spread {ch_spread:.0f}/255). "
+                        "The model was trained on greyscale surface textures."
+                    )
+
+            # Signal 3: non-square aspect ratio > 1.6
+            ratio = max(w, h) / max(min(w, h), 1)
+            if ratio > 1.6:
+                reasons.append(
+                    f"Aspect ratio {ratio:.1f}:1 — surface scans are typically square."
+                )
+
+        except Exception:
+            pass
+
+        is_ood = len(reasons) >= 2
+        severity = "high" if len(reasons) >= 3 else "medium" if is_ood else "low"
+        return {"is_ood": is_ood, "reasons": reasons, "severity": severity}
+
+    ood = _detect_domain_shift(uploaded.getvalue())
+
+    if ood["is_ood"]:
+        scan_ph.empty()
+        st.markdown(f"""
+<div style="background:#450a0a;border:2px solid {COLORS['reject']};border-radius:12px;
+            padding:24px 28px;margin-bottom:20px;">
+  <div style="font-size:1.4rem;font-weight:900;color:#f85149;margin-bottom:10px;">
+    ⚠️ INVALID IMAGE — Outside Model Domain
+  </div>
+  <div style="font-size:0.9rem;color:{COLORS['text']};margin-bottom:14px;line-height:1.7;">
+    This image does not appear to be a manufacturing surface inspection image.
+    The ResNet18 model was trained on <strong>greyscale industrial surface textures (256×256 px)</strong>
+    and cannot reliably classify images from a different domain.<br><br>
+    <strong>Softmax always outputs a confident-looking result even for irrelevant images —
+    showing that result here would be misleading.</strong>
+  </div>
+  <div style="font-size:0.82rem;color:{COLORS['text2']};margin-bottom:8px;font-weight:700;
+              text-transform:uppercase;letter-spacing:.5px;">
+    Detection signals ({len(ood['reasons'])}):
+  </div>
+  <ul style="margin:0;padding-left:18px;">
+    {''.join(f'<li style="font-size:0.84rem;color:{COLORS["text2"]};margin-bottom:5px;">{r}</li>' for r in ood["reasons"])}
+  </ul>
+  <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(248,81,73,0.3);
+              font-size:0.78rem;color:{COLORS['text2']};font-style:italic;">
+    Please upload a greyscale surface texture image — e.g. from
+    <code>reports/gradcam/</code> or any industrial surface scan (≤256×256 px).
+  </div>
+</div>
+""", unsafe_allow_html=True)
+        return
     def _decision(cls: str, conf: float) -> str:
         low = 0.50
         if conf < low:
@@ -167,6 +243,9 @@ def render() -> None:
     raw_decision = _decision(pred.predicted_class, pred.confidence)
     pred_cls = pred.predicted_class
     confidence = pred.confidence
+
+    # Soft OOD warning (1 signal = borderline, still show result but warn)
+    soft_ood = len(ood["reasons"]) == 1
 
     # ── Grad-CAM
     gc_overlay = gc_error = None
@@ -275,6 +354,18 @@ def render() -> None:
         margin = sorted_p[0] - sorted_p[1] if len(sorted_p) > 1 else 0
         m3.metric("Prediction Margin", f"{margin:.1%}",
                   help="Gap between top-1 and top-2 probabilities. <30% = low margin.")
+
+        # soft OOD warning
+        if soft_ood:
+            st.markdown(f"""
+<div style="background:rgba(210,153,34,0.1);border:1px solid {COLORS['review']};
+            border-left:4px solid {COLORS['review']};border-radius:0 8px 8px 0;
+            padding:10px 14px;margin-top:8px;font-size:0.83rem;color:{COLORS['text2']};">
+  ⚠️ <strong style="color:{COLORS['review']};">Domain caution:</strong>
+  {ood['reasons'][0]}
+  This result may be unreliable. Use with caution.
+</div>
+""", unsafe_allow_html=True)
 
         # ── confidence gauge
         confidence_gauge(confidence, raw_decision, key="insp_gauge")

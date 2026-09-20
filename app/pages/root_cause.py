@@ -61,7 +61,7 @@ def render() -> None:
     with ctrl2:
         sel_lines = st.multiselect("Production Line", lines_all, key="rc_lines")
     with ctrl3:
-        sel_qc = st.multiselect("QC Result", ["PASS", "FAIL", "PENDING"], key="rc_qc")
+        sel_qc = st.multiselect("QC Result", ["PASS", "FAIL", "PENDING"], key="rc_qc_filter")
     with ctrl4:
         years = sorted(df_full["year"].dropna().unique().astype(int).tolist())
         if years:
