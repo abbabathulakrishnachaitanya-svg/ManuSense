@@ -1,0 +1,1 @@
+# ManuSense application package

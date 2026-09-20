@@ -1,0 +1,72 @@
+{
+  "crack": {
+    "status": "OK",
+    "checkpoint": "C:\\Users\\thanu\\OneDrive\\Desktop\\ManuSense\\models\\best_model.pt",
+    "epoch": 1,
+    "image": "crack_00000.png",
+    "heatmap_shape": [
+      224,
+      224
+    ],
+    "heatmap_min": 0.0,
+    "heatmap_max": 1.0,
+    "overlay_saved": "C:\\Users\\thanu\\OneDrive\\Desktop\\ManuSense\\reports\\gradcam\\gradcam_crack.png",
+    "note": "Grad-CAM is a model explanation showing which image regions influenced the prediction. It is NOT ground-truth defect localization \u2014 this dataset has no bounding-box annotations."
+  },
+  "hole": {
+    "status": "OK",
+    "checkpoint": "C:\\Users\\thanu\\OneDrive\\Desktop\\ManuSense\\models\\best_model.pt",
+    "epoch": 1,
+    "image": "hole_00000.png",
+    "heatmap_shape": [
+      224,
+      224
+    ],
+    "heatmap_min": 0.0,
+    "heatmap_max": 1.0,
+    "overlay_saved": "C:\\Users\\thanu\\OneDrive\\Desktop\\ManuSense\\reports\\gradcam\\gradcam_hole.png",
+    "note": "Grad-CAM is a model explanation showing which image regions influenced the prediction. It is NOT ground-truth defect localization \u2014 this dataset has no bounding-box annotations."
+  },
+  "normal": {
+    "status": "OK",
+    "checkpoint": "C:\\Users\\thanu\\OneDrive\\Desktop\\ManuSense\\models\\best_model.pt",
+    "epoch": 1,
+    "image": "normal_00000.png",
+    "heatmap_shape": [
+      224,
+      224
+    ],
+    "heatmap_min": 0.0,
+    "heatmap_max": 1.0,
+    "overlay_saved": "C:\\Users\\thanu\\OneDrive\\Desktop\\ManuSense\\reports\\gradcam\\gradcam_normal.png",
+    "note": "Grad-CAM is a model explanation showing which image regions influenced the prediction. It is NOT ground-truth defect localization \u2014 this dataset has no bounding-box annotations."
+  },
+  "rust": {
+    "status": "OK",
+    "checkpoint": "C:\\Users\\thanu\\OneDrive\\Desktop\\ManuSense\\models\\best_model.pt",
+    "epoch": 1,
+    "image": "rust_00000.png",
+    "heatmap_shape": [
+      224,
+      224
+    ],
+    "heatmap_min": 0.0,
+    "heatmap_max": 1.0,
+    "overlay_saved": "C:\\Users\\thanu\\OneDrive\\Desktop\\ManuSense\\reports\\gradcam\\gradcam_rust.png",
+    "note": "Grad-CAM is a model explanation showing which image regions influenced the prediction. It is NOT ground-truth defect localization \u2014 this dataset has no bounding-box annotations."
+  },
+  "scratch": {
+    "status": "OK",
+    "checkpoint": "C:\\Users\\thanu\\OneDrive\\Desktop\\ManuSense\\models\\best_model.pt",
+    "epoch": 1,
+    "image": "scratch_00000.png",
+    "heatmap_shape": [
+      224,
+      224
+    ],
+    "heatmap_min": 0.0,
+    "heatmap_max": 1.0,
+    "overlay_saved": "C:\\Users\\thanu\\OneDrive\\Desktop\\ManuSense\\reports\\gradcam\\gradcam_scratch.png",
+    "note": "Grad-CAM is a model explanation showing which image regions influenced the prediction. It is NOT ground-truth defect localization \u2014 this dataset has no bounding-box annotations."
+  }
+}

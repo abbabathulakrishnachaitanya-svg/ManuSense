@@ -1,0 +1,65 @@
+{
+  "checkpoint": "C:\\Users\\thanu\\OneDrive\\Desktop\\ManuSense\\models\\best_model.pt",
+  "checkpoint_epoch": 1,
+  "checkpoint_val_acc": 0.9911,
+  "class_names": [
+    "crack",
+    "hole",
+    "normal",
+    "rust",
+    "scratch"
+  ],
+  "split": {
+    "train": 8400,
+    "val": 1800,
+    "test": 1800
+  },
+  "test_loss": 0.034,
+  "correct": 1784,
+  "incorrect": 16,
+  "accuracy": 0.9911,
+  "precision_weighted": 0.9914,
+  "recall_weighted": 0.9911,
+  "f1_weighted": 0.9911,
+  "precision_macro": 0.9914,
+  "recall_macro": 0.9911,
+  "f1_macro": 0.9911,
+  "confusion_matrix": [
+    [
+      360,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      360,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      360,
+      0,
+      0
+    ],
+    [
+      0,
+      14,
+      2,
+      344,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      360
+    ]
+  ],
+  "classification_report": "              precision    recall  f1-score   support\n\n       crack       1.00      1.00      1.00       360\n        hole       0.96      1.00      0.98       360\n      normal       0.99      1.00      1.00       360\n        rust       1.00      0.96      0.98       360\n     scratch       1.00      1.00      1.00       360\n\n    accuracy                           0.99      1800\n   macro avg       0.99      0.99      0.99      1800\nweighted avg       0.99      0.99      0.99      1800\n"
+}

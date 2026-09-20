@@ -1,0 +1,77 @@
+[
+  {
+    "file": "crack_00000.png",
+    "true_class": "crack",
+    "predicted_class": "crack",
+    "confidence": 1.0,
+    "decision": "REJECT",
+    "correct": true,
+    "probabilities": {
+      "crack": 1.0,
+      "hole": 0.0,
+      "normal": 0.0,
+      "rust": 0.0,
+      "scratch": 0.0
+    }
+  },
+  {
+    "file": "hole_00000.png",
+    "true_class": "hole",
+    "predicted_class": "hole",
+    "confidence": 1.0,
+    "decision": "REJECT",
+    "correct": true,
+    "probabilities": {
+      "crack": 0.0,
+      "hole": 1.0,
+      "normal": 0.0,
+      "rust": 0.0,
+      "scratch": 0.0
+    }
+  },
+  {
+    "file": "normal_00000.png",
+    "true_class": "normal",
+    "predicted_class": "normal",
+    "confidence": 0.9996,
+    "decision": "ACCEPT",
+    "correct": true,
+    "probabilities": {
+      "crack": 0.0001,
+      "hole": 0.0001,
+      "normal": 0.9996,
+      "rust": 0.0001,
+      "scratch": 0.0
+    }
+  },
+  {
+    "file": "rust_00000.png",
+    "true_class": "rust",
+    "predicted_class": "rust",
+    "confidence": 0.9689,
+    "decision": "REJECT",
+    "correct": true,
+    "probabilities": {
+      "crack": 0.0065,
+      "hole": 0.0231,
+      "normal": 0.0009,
+      "rust": 0.9689,
+      "scratch": 0.0006
+    }
+  },
+  {
+    "file": "scratch_00000.png",
+    "true_class": "scratch",
+    "predicted_class": "scratch",
+    "confidence": 1.0,
+    "decision": "REJECT",
+    "correct": true,
+    "probabilities": {
+      "crack": 0.0,
+      "hole": 0.0,
+      "normal": 0.0,
+      "rust": 0.0,
+      "scratch": 1.0
+    }
+  }
+]

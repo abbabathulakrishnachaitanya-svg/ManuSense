@@ -1,0 +1,57 @@
+# ── Secrets & environment ─────────────────────────────────────────────────────
+# .env contains local paths and thresholds — never commit it
+.env
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.whl
+*.spec
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ── Dataset (large binary files — not committed) ──────────────────────────────
+# The organizer inspection images live in train/ and are not committed to Git.
+# Copy or symlink the dataset locally after cloning.
+train/
+
+# ── Generated data and model artefacts ───────────────────────────────────────
+data/images/*
+data/processed/*
+models/*
+
+# Keep placeholder files so empty directories are tracked
+!models/.gitkeep
+!models/best_model.pt
+!data/images/.gitkeep
+!data/processed/.gitkeep
+
+# ── IDE & OS ──────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.DS_Store
+Thumbs.db
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Coverage & testing ────────────────────────────────────────────────────────
+.coverage
+htmlcov/
+.pytest_cache/
